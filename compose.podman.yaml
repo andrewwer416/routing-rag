@@ -1,0 +1,6 @@
+# Preserve the prevalidated CNI network across container recreation on Podman 3.4.
+# scripts/start_local_qwen.py creates/checks this network before Compose runs.
+networks:
+  default:
+    external: true
+    name: agentic-rag-openwebui-demo_default

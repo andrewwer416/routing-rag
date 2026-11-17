@@ -1,0 +1,8 @@
+[
+  {"question":"How many points is a successful field goal worth?","expected":"bm25","reason":"One stated score."},
+  {"question":"Which organization runs the Super Bowl?","expected":"bm25","reason":"One named organization."},
+  {"question":"Explain what a quarterback is trying to accomplish with a play-action pass.","expected":"rag","reason":"Explain a local tactical mechanism."},
+  {"question":"Help a beginner understand why a team sometimes punts instead of trying another offensive play.","expected":"rag","reason":"Explain the meaning and rationale of a local choice."},
+  {"question":"How did the growth of college football, changes to eligibility rules, and the emergence of professional leagues reshape who could play and get paid?","expected":"graphrag","reason":"Connect institutions, rule changes and professionalization."},
+  {"question":"Across the article, what tensions recur between making football exciting and making it safer, and how have different institutions responded?","expected":"graphrag","reason":"Synthesize recurring themes and institutional responses across the collection."}
+]

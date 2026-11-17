@@ -1,0 +1,14 @@
+[
+  {"question":"How many points is a touchdown worth?","expected":"bm25","reason":"One directly stated scoring value."},
+  {"question":"How many players does each team have on the field?","expected":"bm25","reason":"One directly stated player count."},
+  {"question":"Who is known as the father of American football?","expected":"bm25","reason":"One named person."},
+  {"question":"Compare the points awarded for a touchdown and a field goal.","expected":"bm25","reason":"Two explicitly stated values, no relationship traversal."},
+  {"question":"Explain in plain English how a zone defense works.","expected":"rag","reason":"A local tactical mechanism explained using relevant passages."},
+  {"question":"Why does earning a fresh set of downs help an offense keep possession?","expected":"rag","reason":"A local conceptual explanation of the downs rule."},
+  {"question":"What is the tactical purpose of making a defender think a run is coming before throwing the ball?","expected":"rag","reason":"Semantic paraphrase of a local tactic, play-action passing."},
+  {"question":"I am new to the sport. What does it mean when the offense has to gain ten yards in four attempts?","expected":"rag","reason":"Explain a rule in novice language, not a historical synthesis."},
+  {"question":"How did rugby influence early American football, and how did Walter Camp's reforms move the sport away from its origins?","expected":"graphrag","reason":"Trace links between origins, a reformer and later rule changes."},
+  {"question":"How did player fatalities lead to reform, and how did the reforms affect the way offenses could advance the ball?","expected":"graphrag","reason":"Assemble a chain from deaths to rule reforms to offensive changes."},
+  {"question":"What recurring forces shaped American football's rules, institutions and safety practices throughout its history?","expected":"graphrag","reason":"Synthesize themes over several topics and periods."},
+  {"question":"How did school traditions, rule changes and professional organizations together produce the modern game?","expected":"graphrag","reason":"Link multiple institutions and changes across the document."}
+]

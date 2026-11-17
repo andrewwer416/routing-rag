@@ -1,0 +1,48 @@
+# Separate containers preserve service DNS on older Podman.
+x-podman:
+  in_pod: false
+services:
+  retrieval:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      DATA_DIR: /app/data
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-BAAI/bge-small-en-v1.5}
+      API_KEY: ${API_KEY:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      LLM_MODEL: ${LLM_MODEL:-llama3.2:3b}
+      LLM_API_KEY: ${LLM_API_KEY:-local}
+      ROUTING_PROVIDER: ${ROUTING_PROVIDER:-chat}
+      ROUTING_MODEL: ${ROUTING_MODEL:-}
+      KEV_BASE_URL: ${KEV_BASE_URL:-http://kev:8009}
+      KEV_API_KEY: ${KEV_API_KEY:-local}
+      ROUTING_TIMEOUT: ${ROUTING_TIMEOUT:-60}
+      ANSWER_MAX_TOKENS: ${ANSWER_MAX_TOKENS:-512}
+    volumes:
+      - knowledge:/app/data
+      - embedding-cache:/home/app/.cache
+    networks:
+      - default
+    restart: unless-stopped
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:${OPENWEBUI_TAG:-main}
+    ports:
+      - "127.0.0.1:3000:8080"
+    environment:
+      OPENAI_API_BASE_URL: http://retrieval:8000/v1
+      OPENAI_API_KEY: ${API_KEY:-local-demo}
+      ENABLE_OLLAMA_API: "false"
+    volumes:
+      - openwebui:/app/backend/data
+    depends_on:
+      - retrieval
+    networks:
+      - default
+    restart: unless-stopped
+volumes:
+  knowledge:
+  embedding-cache:
+  openwebui:
+networks:
+  default: {}

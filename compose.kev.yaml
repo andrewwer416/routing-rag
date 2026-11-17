@@ -1,0 +1,31 @@
+# Kev-4B router + Ollama answer generation. Add after compose.qwen.yaml.
+services:
+  kev:
+    build:
+      context: .
+      dockerfile: Dockerfile.kev
+    image: localhost/agentic-rag-openwebui-demo_kev:latest
+    environment:
+      KEV_DTYPE: bf16
+      # Avoid multi-GB graph buffers; share a 16 GB GPU with the answer model.
+      KEV_CUDA_GRAPHS: "0"
+      KEV_FUSED: "0"
+      KEV_PREFIX_CACHE: "1"
+      KEV_PREFIX_MAX_TOKENS: "4096"
+      KEV_API_KEY: ${KEV_API_KEY:-local}
+    volumes:
+      - kev-models:/home/kev/.cache/huggingface
+    networks:
+      - default
+    restart: unless-stopped
+  retrieval:
+    environment:
+      ROUTING_PROVIDER: kev
+      ROUTING_MODEL: jaredpalmer/kev-4b@v1.0
+      KEV_BASE_URL: http://kev:8009
+      KEV_API_KEY: ${KEV_API_KEY:-local}
+  ollama:
+    environment:
+      OLLAMA_MAX_LOADED_MODELS: "1"
+volumes:
+  kev-models:

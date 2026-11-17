@@ -1,0 +1,6 @@
+# Optional Docker override for reaching a chat model running on the host.
+# Podman uses its own host networking conventions; do not load this override there.
+services:
+  retrieval:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

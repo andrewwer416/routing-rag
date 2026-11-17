@@ -1,0 +1,10 @@
+[
+  {"question":"how does a team advance to the super bowl","expected":"graphrag","reason":"Interpret the requested route as a chain of qualification and postseason stages, not just name the final participants."},
+  {"question":"What route must a team take to reach the Super Bowl?","expected":"graphrag","reason":"A short paraphrase of a multistage qualification path."},
+  {"question":"How do playoff qualification, seeding, byes, and conference championships determine which teams reach the Super Bowl?","expected":"graphrag","reason":"Explicit dependencies among qualification and competition stages."},
+  {"question":"What has to happen between a team's regular-season performance and its appearance in the Super Bowl?","expected":"graphrag","reason":"Connect a starting state to a final outcome through intermediate stages."},
+  {"question":"How does a team move the ball down the field?","expected":"rag","reason":"A local gameplay explanation of running and passing, not tournament qualification."},
+  {"question":"Why does an offense use a screen pass?","expected":"rag","reason":"A local tactical explanation, not an eligibility path."},
+  {"question":"Which two conferences send their champions to the Super Bowl?","expected":"bm25","reason":"Retrieve two named conferences, not an explanation of reaching that status."},
+  {"question":"What is the name of the trophy awarded to the Super Bowl winner?","expected":"bm25","reason":"One explicitly stated named fact."}
+]

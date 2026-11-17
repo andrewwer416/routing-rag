@@ -1,0 +1,12 @@
+FROM docker.io/library/python:3.13-slim
+ARG KEV_REVISION=6b719c3c3f367295f6ef336f4f751cf5ff970abc
+RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates libgomp1 && rm -rf /var/lib/apt/lists/*
+# The upstream Kev 1.0 runtime requires torch <2.9. CUDA 12.8 wheels support RTX 50-series.
+RUN pip install --no-cache-dir torch==2.8.0 --index-url https://download.pytorch.org/whl/cu128
+RUN pip install --no-cache-dir "kev[serve] @ git+https://github.com/jaredpalmer/kev.git@${KEV_REVISION}"
+RUN useradd --create-home kev && mkdir -p /home/kev/.cache/huggingface && chown -R kev:kev /home/kev
+COPY scripts/serve_kev.py /app/serve_kev.py
+USER kev
+ENV HF_HOME=/home/kev/.cache/huggingface PYTHONUNBUFFERED=1
+EXPOSE 8009
+CMD ["python", "/app/serve_kev.py", "--run", "jaredpalmer/kev-4b@v1.0", "--host", "0.0.0.0", "--port", "8009"]

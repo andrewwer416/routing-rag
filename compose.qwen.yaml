@@ -1,0 +1,23 @@
+# Optional local inference. WSL GPU support is added by compose.qwen.wsl-gpu.yaml.
+services:
+  ollama:
+    image: docker.io/ollama/ollama:latest
+    environment:
+      OLLAMA_CONTEXT_LENGTH: "4096"
+      OLLAMA_NUM_PARALLEL: "1"
+      OLLAMA_MAX_LOADED_MODELS: ${OLLAMA_MAX_LOADED_MODELS:-2}
+      OLLAMA_KEEP_ALIVE: ${OLLAMA_KEEP_ALIVE:-30m}
+    volumes:
+      - ollama-models:/root/.ollama
+    networks:
+      - default
+    restart: unless-stopped
+  retrieval:
+    environment:
+      LLM_BASE_URL: http://ollama:11434/v1
+      LLM_MODEL: ${QWEN_MODEL:-qwen2.5:1.5b}
+      LLM_API_KEY: local
+      ROUTING_PROVIDER: chat
+      ROUTING_MODEL: ${ROUTING_MODEL:-qwen2.5:7b}
+volumes:
+  ollama-models:

@@ -1,0 +1,10 @@
+# NVIDIA passthrough for WSL2, including older Podman without CDI support.
+# Requires the Windows NVIDIA driver, /dev/dxg, and /usr/lib/wsl/lib/libcuda.so.1.
+services:
+  ollama:
+    devices:
+      - /dev/dxg:/dev/dxg
+    volumes:
+      - /usr/lib/wsl:/usr/lib/wsl:ro
+    environment:
+      LD_LIBRARY_PATH: /usr/lib/wsl/lib

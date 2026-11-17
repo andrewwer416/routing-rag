@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentic-rag-openwebui-demo"
+version = "0.1.0"
+description = "Inspectable BM25, semantic RAG and graph retrieval for Open WebUI"
+requires-python = ">=3.10"
+dependencies = [
+  "fastapi>=0.115,<1", "uvicorn>=0.30,<1", "python-multipart>=0.0.18,<1",
+  "pypdf>=5,<7", "numpy>=1.26,<3", "networkx>=3.2,<4",
+  "rank-bm25>=0.2.2,<0.3", "fastembed>=0.5,<1", "httpx>=0.27,<1",
+  "pydantic-settings>=2.6,<3"
+]
+
+[project.optional-dependencies]
+ocr = ["rapidocr-onnxruntime>=1.2.3,<2", "pypdfium2>=4,<6", "reportlab>=4,<6"]
+containers = ["podman-compose==1.0.6"]
+dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
+
+[project.scripts]
+rag-demo = "agentic_rag.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+extend-exclude = [".cache", "data"]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
